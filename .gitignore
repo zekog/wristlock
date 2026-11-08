@@ -1,0 +1,36 @@
+# Build artifacts
+*.o
+*.elf
+*.bin
+a.out
+ghostlock64
+trigger_edeadlk
+reclaim_harness
+leak_regs
+verify_offsets
+futex_check
+futex_perf
+futex_pi_perf
+futex_pi_perf2
+futex_pi_perf3
+futex_pi_hard
+pi4
+pi5
+pi6
+pi7
+pi8
+piB
+piC
+rbvma
+rt_verify
+ks_probe
+phase1
+
+# Third-party checkouts (not vendored; see README for how to fetch)
+vendor/
+
+# Local scratch
+*.log
+*.out
+*.txt.bak
+__pycache__/

@@ -1,0 +1,106 @@
+/* offsets_w3.h — OnePlus Watch 3 (OPWWE251), kernel 5.15.185-android14-11
+ *
+ * SOURCE: rebuild from the Watch2 branch (OPWWE231_11_A.169) + EXACT device config
+ *         (/proc/config.gz) + clang r487747c (the same as the watch).
+ *         vmlinux: /tmp/opencode/kb/vmlinux ; System.map: /tmp/opencode/kb/System.map
+ *
+ * CONFIDENCE LEVEL:
+ *   [C]  STRUCTURE offsets        -> ~100% (identical config + 2 independent sources)
+ *   [~]  FUNCTION and DATA addresses -> ~95% (same version/config/toolchain/LTO,
+ *        but the source is the Watch2 branch, not Watch3; the build has minor
+ *        nondeterminism +/- 4 B in some regions) -> MUST validate on the device!
+ *
+ * Addresses are KASLR-relative to _text. At runtime: address = _text_runtime + offset.
+ *
+ *   _text = 0xffffffc008000000 (pre-slide)
+ */
+#ifndef OFFSETS_W3_H
+#define OFFSETS_W3_H
+
+#define K_TEXT_BASE              0xffffffc008000000UL
+
+/* ---- functions: full address [~] ---- */
+#define A_COMMIT_CREDS           (K_TEXT_BASE + 0x19dd38UL)
+#define A_PREPARE_KERNEL_CRED    (K_TEXT_BASE + 0x19d1c8UL)
+#define A_OVERRIDE_CREDS         (K_TEXT_BASE + 0x19daecUL)
+#define A_SCHED_SETATTR          (K_TEXT_BASE + 0x1b428cUL)
+#define A_ARM64_SYS_SCHED_SETATTR (K_TEXT_BASE + 0x1bb07cUL)
+#define A_DO_FUTEX               (K_TEXT_BASE + 0x29cec8UL)
+#define A_FUTEX_WAIT             (K_TEXT_BASE + 0x29edb8UL)
+#define A_FUTEX_REQUEUE          (K_TEXT_BASE + 0x29f350UL)
+#define A_FUTEX_LOCK_PI          (K_TEXT_BASE + 0x2a078cUL)
+#define A_ARM64_SYS_FUTEX        (K_TEXT_BASE + 0x2a3394UL)
+#define A_RB_INSERT_COLOR        (K_TEXT_BASE + 0xa185a4UL)
+#define A_RB_ERASE               (K_TEXT_BASE + 0xa18714UL)
+#define A_TRY_TO_TAKE_RT_MUTEX   (K_TEXT_BASE + 0x152ae24UL)
+#define A_RT_MUTEX_SLOWLOCK      (K_TEXT_BASE + 0x152b268UL)
+#define A_TASK_BLOCKS_ON_RT_MUTEX (K_TEXT_BASE + 0x152b480UL)
+#define A_REMOVE_WAITER          (K_TEXT_BASE + 0x152bda8UL)
+#define A_RT_MUTEX_ADJ_PRIO      (K_TEXT_BASE + 0x152c290UL)
+#define A_RT_MUTEX_START_PROXY   (K_TEXT_BASE + 0x152db38UL)
+
+/* ---- data objects [~] ---- */
+#define A_INIT_CRED              (K_TEXT_BASE + 0x278e5b8UL)
+#define A_INIT_TASK              (K_TEXT_BASE + 0x27cc280UL)
+#define A_INIT_USER_NS           (K_TEXT_BASE + 0x2843e10UL)
+#define A_INIT_NS_PROXY          (K_TEXT_BASE + 0x26b3370UL)
+#define A_ROOT_USER              (K_TEXT_BASE + 0x26b34d0UL)
+#define A_INIT_UCOUNTS           (K_TEXT_BASE + 0x26b3a40UL)
+#define A_CORE_PATTERN           (K_TEXT_BASE + 0x2765d20UL)
+#define A_MODPROBE_PATH          (K_TEXT_BASE + 0x26b3b70UL)
+#define A_INIT_PID_NS            (K_TEXT_BASE + 0x277da50UL)
+#define A_INET6_PROTOS           (K_TEXT_BASE + 0x269afc8UL)
+#define A_PER_CPU_OFFSET         (K_TEXT_BASE + 0x269c200UL)
+#define A_PCPU_BASE_ADDR         (K_TEXT_BASE + 0x1bfb5d8UL)
+#define A_SELINUX_STATE          (K_TEXT_BASE + 0x2919078UL)
+#define A_MMAP_MIN_ADDR          (K_TEXT_BASE + 0x2946be0UL)
+#define A_DAC_MMAP_MIN_ADDR      (K_TEXT_BASE + 0x278ea08UL)
+
+/* ---- structure sizes [C] ---- */
+#define SZ_CRED                  (0xB0UL)
+#define SZ_TASK_STRUCT           (0x1280UL)
+#define SZ_RT_MUTEX_WAITER       (0x58UL)
+
+/* ---- task_struct [C] ---- */
+#define OFF_T_PTRACER_CRED       (0x7F0UL)
+#define OFF_T_REAL_CRED          (0x7F8UL)
+#define OFF_T_CRED               (0x800UL)
+#define OFF_T_PI_LOCK            (0x8ECUL)
+#define OFF_T_PI_WAITERS_ROOT    (0x900UL)
+#define OFF_T_PI_WAITERS_LEFT    (0x908UL)
+#define OFF_T_PI_TOP_TASK        (0x910UL)
+#define OFF_T_PI_BLOCKED_ON      (0x918UL)
+
+/* ---- cred [C] ---- */
+#define OFF_C_USAGE              (0x00UL)
+#define OFF_C_UID                (0x04UL)
+#define OFF_C_GID                (0x08UL)
+#define OFF_C_SUID               (0x0CUL)
+#define OFF_C_SGID               (0x10UL)
+#define OFF_C_EUID               (0x14UL)
+#define OFF_C_EGID               (0x18UL)
+#define OFF_C_FSUID              (0x1CUL)
+#define OFF_C_FSGID              (0x20UL)
+#define OFF_C_SECUREBITS         (0x24UL)
+#define OFF_C_CAP_INHERITABLE    (0x28UL)
+#define OFF_C_CAP_PERMITTED      (0x30UL)
+#define OFF_C_CAP_EFFECTIVE      (0x38UL)
+#define OFF_C_CAP_BSET           (0x40UL)
+#define OFF_C_CAP_AMBIENT        (0x48UL)
+#define OFF_C_SECURITY           (0x78UL)
+#define OFF_C_USER               (0x80UL)
+#define OFF_C_USER_NS            (0x88UL)
+#define OFF_C_UCOUNTS            (0x90UL)
+#define OFF_C_GROUP_INFO         (0x98UL)
+
+/* ---- rt_mutex_waiter [C] ---- */
+#define OFF_W_TREE_ENTRY         (0x00UL)
+#define OFF_W_PI_TREE_ENTRY      (0x18UL)
+#define OFF_W_TASK               (0x30UL)
+#define OFF_W_LOCK               (0x38UL)
+#define OFF_W_WAKE_STATE         (0x40UL)
+#define OFF_W_PRIO               (0x44UL)
+#define OFF_W_DEADLINE           (0x48UL)
+#define OFF_W_WW_CTX             (0x50UL)
+
+#endif /* OFFSETS_W3_H */
